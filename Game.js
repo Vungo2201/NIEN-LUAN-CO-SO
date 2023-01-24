@@ -28,5 +28,4 @@ function koAnimation(){
     requestAnimationFrame(koAnimation);
 }
 
-koAnimation()
 

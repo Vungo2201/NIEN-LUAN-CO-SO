@@ -1,0 +1,9 @@
+#canvasForGame{
+    border: solid 2px rgb(130, 231, 48);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 550px;
+    width: 850px;
+}

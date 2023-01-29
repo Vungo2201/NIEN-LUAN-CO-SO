@@ -28,4 +28,28 @@ function koAnimation(){
     requestAnimationFrame(koAnimation);
 }
 
+var playerJump = new Image();
+var playerJumpImageNumber = 1;
+
+function jumpAnimation(){
+    ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    playerJump.src = '/BoxHeadMan sprites/jump/jump ('+ playerJumpImageNumber +').png'
+    ctx.drawImage(playerJump,0,0,200,200,20,150,100,100);
+    if (playerJumpImageNumber < 12) playerJumpImageNumber++;
+    else playerJumpImageNumber = 1;
+    requestAnimationFrame(jumpAnimation);
+}
+
+var playerRollJump = new Image();
+var playerRollJumpImageNumber = 1;
+
+function rollJumpAnimation(){
+    ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    playerRollJump.src = '/BoxHeadMan sprites/Roll jump/Roll jump ('+ playerRollJumpImageNumber +').png'
+    ctx.drawImage(playerRollJump,0,0,200,200,20,150,100,100);
+    if (playerRollJumpImageNumber < 18) playerRollJumpImageNumber++;
+    else playerRollJumpImageNumber = 1;
+    requestAnimationFrame(rollJumpAnimation);
+}
+
 

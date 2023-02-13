@@ -1,8 +1,25 @@
-const canvas = document.getElementById("canvasForGame");
-const ctx = canvas.getContext("2d");
+ import { Boxheadman } from './Boxheadman'
+window.addEventListener('load', function(){
+    const canvas = document.getElementById("canvasForGame");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 700;
+    canvas.height = 500;
+    
+    class gameScreen {
+        constructor(width,height){
+            this.width = width;
+            this.height = height;
+            this.Boxheadman = new Boxheadman(this);
+        }
+        updata(){
+            
+        }
+        draw(){
 
-const CANVAS_WIDTH = canvas.width = 700;
-const CANVAS_HEIGHT = canvas.height = 500;
+        }
+    }
+});
+
 let gameFrame = 0;
 const controlFrame = 2;
 

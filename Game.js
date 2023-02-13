@@ -5,10 +5,7 @@ const CANVAS_WIDTH = canvas.width = 700;
 const CANVAS_HEIGHT = canvas.height = 500;
 let gameFrame = 0;
 const controlFrame = 2;
-const player ={
-    Xplayer: 0,
-    Yplayer: 280,
-}
+
 
 var playerRun = new Image();
 var playerRunImageNumber = 1;
@@ -87,3 +84,4 @@ function loopBackground(){
     X2ofBackground -= controlFrame;
     requestAnimationFrame(loopBackground);
 }
+

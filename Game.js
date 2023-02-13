@@ -69,20 +69,6 @@ function jumpAnimation(){
     gameFrame++;
     requestAnimationFrame(jumpAnimation);
 }
-var playerRollJump = new Image();
-var playerRollJumpImageNumber = 1;
-
-function rollJumpAnimation(){
-    // ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-    playerRollJump.src = '/BoxHeadMan sprites/Roll jump/Roll jump ('+ playerRollJumpImageNumber +').png'
-    ctx.drawImage(playerRollJump,0,0,200,200,player.Xplayer,player.Yplayer,100,100);
-    if(gameFrame%controlFrame==0){
-        if (playerRollJumpImageNumber < 18) playerRollJumpImageNumber++;
-        else playerRollJumpImageNumber = 1;
-    }
-    gameFrame++;
-    requestAnimationFrame(rollJumpAnimation);
-}
 
 const backgroundGame = new Image();
 backgroundGame.src = '/layer/backgroundGame.png'

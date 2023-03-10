@@ -2,10 +2,10 @@ const canvas = document.getElementById("canvasForGame");
 // method returns a drawing context on the canvas (2d in this case)
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1000;
-canvas.height = 700;
+canvas.width = 1300;
+canvas.height = 1000;
 
-const graviti = 0.6;
+const graviti = 1;
 
 class sprites {
     constructor(){
@@ -43,8 +43,8 @@ class BoxheadMan {
             Y: 0
         }
         this.shape = {
-            width: 100,
-            height: 100
+            width: 150,
+            height: 150
         }
         this.move = {
             speedX: 0,
@@ -54,7 +54,7 @@ class BoxheadMan {
     
     draw(){
         ctx.fillStyle = 'red';
-        ctx.fillRect(this.Position.X,this.Position.Y,100,100);
+        ctx.fillRect(this.Position.X,this.Position.Y,this.shape.width,this.shape.height);
         //method draw Image of canvas ctx.drawImage(photo,x start render of photo,y start render of photo,width photo,height photo, x start render of canvas, y start render of canvas,canvas width render,canvas height render);
         //ctx.drawImage(this.Image,0,0,200,200,this.x,this.y,this.width,this.height)
     }
@@ -105,7 +105,7 @@ addEventListener('keydown',(Event) => {
 
         case "ArrowUp":
         case "w":
-        BoxHeadMan.move.speedY = -18;
+        BoxHeadMan.move.speedY = -25;
         break;
 
         case "a":

@@ -7,8 +7,6 @@
     height: 500px;
     width: 700px;
 }
-#player{
-    width: 100px;
-    height: 100px;
-    display: none;
+body{
+    background-image: url(/layer/backgrouund_wed);
 }

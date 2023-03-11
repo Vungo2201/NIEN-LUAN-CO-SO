@@ -8,5 +8,6 @@
     width: 700px;
 }
 body{
-    background-image: url(/layer/background_wed);
+    background-image: url(/layer/background_web.jpg);
+    /* background-image: url(/layer/heart.png); */
 }

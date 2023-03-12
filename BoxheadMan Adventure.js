@@ -12,7 +12,7 @@ var liveNumber = 3;
 //control star game,end game
 var gamestate = 1;
 var Timer = 0;
-var score = 0 ;
+var score = 0;
 
 class sprites {
     constructor(){
@@ -72,13 +72,38 @@ class BoxheadMan extends sprites{
     }
 }
 
+class enemy extends sprites{
+    constructor(enemy_sprites,width_i,height_i,Y_canvas,speed){
+        super();
+        this.enemy_sprites = enemy_sprites;
+        this.enemy_sprites_number = 1;
+        this.Shape = {
+           width : width_i,
+           height : height_i,
+           width_canvas:130,
+           height_canvas: 130
+        }
+        this.speed = speed;
+        this.Position.X_canvas = canvas.width;
+        this.Position.Y_canvas = Y_canvas;
+    }
+    update(){
+        this.draw();
+        this.Position.X_canvas-= this.speed;
+        this.image.src = '/'+ this.enemy_sprites +'/anh ('+  this.enemy_sprites_number +').png'
+        this.enemy_sprites_number++;
+        if(this.enemy_sprites_number > 11) this.enemy_sprites_number = 1;
+        console.log(this.image.src)
+
+    }
+}
+
 var keysInput = {
     left_Key : false,
     right_Key : false,
 }
 
 addEventListener('keydown',(Event) => {
-    console.log(Event.key)
     switch(Event.key) {
         case 'd':
         case 'ArrowRight':
@@ -87,7 +112,7 @@ addEventListener('keydown',(Event) => {
 
         case "ArrowUp":
         case "w":
-        BoxHeadMan.move.speedY = -28;
+        BoxHeadMan.move.speedY = -25;
         break;
 
         case "a":
@@ -116,6 +141,15 @@ BoxHeadMan.image.src = '/BoxHeadMan sprites/run/run (19).png';
 var live = new sprites();
 live.image.src = '/layer/heart.png';
 
+var alien = new enemy("Alien sprites",1214,784,650,1.75);
+var bee = new enemy("Bee sprites",273,282,400,3);
+var bat = new enemy("Bluebat sprites",476,450,480,2.5);
+var ghost = new enemy("Ghost sprites",396,528,380,1.5);
+
+const enemy_store = [alien,bee,bat,ghost];
+const random = Math.floor(Math.random()*enemy_store.length);
+// console.log(enemy_store[random]);
+
 var backgroundGame = new sprites();
 var backgroundGame2 = new sprites();
 
@@ -126,10 +160,10 @@ backgroundGame2.Shape.height_canvas=backgroundGame.Shape.height_canvas = canvas.
 backgroundGame2.image.src = backgroundGame.image.src = '/layer/backgroundGame.png';
 backgroundGame2.Position.X_canvas = 1300;
 
-function animate(){
+function animateGame(){
     if(gamestate==1){
         Timer++;
-        window.requestAnimationFrame(animate);
+        window.requestAnimationFrame(animateGame);
         ctx.fillStyle = 'black';
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
@@ -146,6 +180,11 @@ function animate(){
         ctx.fillText("Score: " + (score*0.05).toFixed(0) ,canvas.width-350,80);
         ctx.fillText("Time: " + (Timer*0.028).toFixed(0) ,canvas.width-350,150 )
 
+        // ghost.update();
+        // bat.update();
+        // bee.update();
+        // alien.update();
+        // if((Timer*0.028).toFixed(0)%13==0)   enemy_store[random].update();
         BoxHeadMan.update();
         BoxHeadMan.move.speedX = 0;
 
@@ -182,5 +221,5 @@ function animate(){
     }
 }
 
-animate()
+animateGame()
 

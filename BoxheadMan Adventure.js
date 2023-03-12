@@ -7,10 +7,10 @@ canvas.height = 1000;
 
 const graviti = 1;
 var run = 1;
-var jump = 1;
+var dead = 1;
 var liveNumber = 3;
 //control star game,end game
-var gamestate = 1;
+var gamestate = 0;
 var Timer = 0;
 var score = 0;
 
@@ -86,6 +86,7 @@ class enemy extends sprites{
         this.speed = speed;
         this.Position.X_canvas = canvas.width;
         this.Position.Y_canvas = Y_canvas;
+        this.image.src = '/'+ this.enemy_sprites +'/anh ('+  1 +').png'
     }
     update(){
         this.draw();
@@ -161,7 +162,35 @@ backgroundGame2.image.src = backgroundGame.image.src = '/layer/backgroundGame.pn
 backgroundGame2.Position.X_canvas = 1300;
 
 function animateGame(){
-    if(gamestate==1){
+    if(gamestate== 0){
+        window.requestAnimationFrame(animateGame);
+
+        ctx.fillStyle = 'pink';
+        // ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        backgroundGame.update();
+        BoxHeadMan.Position.X_canvas = canvas.width*0.4;
+        BoxHeadMan.Position.Y_canvas = canvas.height*0.225;
+        BoxHeadMan.draw();
+
+        alien.Position.X_canvas = canvas.width*0.55;
+        alien.Position.Y_canvas = canvas.height*0.3;
+        alien.draw();
+
+        ctx.font = "75px Arial";
+        ctx.fillText("BoxheadMan Adventure",canvas.width*0.2,canvas.height*0.5);
+
+        ctx.strokeStyle = "white";
+        ctx.fillStyle = "red";
+        ctx.font = "100px Arial";
+        ctx.strokeText("Star",canvas.width*0.45,canvas.height*0.62);
+        ctx.fillText("Star",canvas.width*0.45,canvas.height*0.62);
+
+        addEventListener('click',(Event)=>gamestate=1)
+
+
+    }
+    else if(gamestate==1){
         Timer++;
         window.requestAnimationFrame(animateGame);
         ctx.fillStyle = 'black';
@@ -171,12 +200,13 @@ function animateGame(){
         backgroundGame.update();
         backgroundGame2.update();
         ctx.restore();
+        
       
         for(let i = 0;i < liveNumber; i++){
             ctx.drawImage(live.image,0,0,80,80,30+75*i,30,80,80);
         }
 
-        ctx.font = "40px Arial black";
+        ctx.font = "50px Arial";
         ctx.fillText("Score: " + (score*0.05).toFixed(0) ,canvas.width-350,80);
         ctx.fillText("Time: " + (Timer*0.028).toFixed(0) ,canvas.width-350,150 )
 
@@ -196,6 +226,7 @@ function animateGame(){
             backgroundGame.Position.X_canvas--;
             backgroundGame2.Position.X_canvas--;
             score++;
+            // liveNumber -= 1/10;
         }
         else if(keysInput.left_Key){
             BoxHeadMan.image.src = '/BoxHeadMan sprites/run/runleft ('+ run +').png';
@@ -211,13 +242,40 @@ function animateGame(){
         if(backgroundGame2.Position.X_canvas<-1300) backgroundGame2.Position.X_canvas = 1299;
         if(backgroundGame.Position.X_canvas>1300) backgroundGame.Position.X_canvas = -1299;
         if(backgroundGame2.Position.X_canvas>1300) backgroundGame2.Position.X_canvas = -1299;
-
         if(score<0) score=0;
 
-        if(liveNumber == 0){
-            for(i = 1;i < 22;i++) BoxHeadMan.image.src = '/BoxHeadMan sprites/KO/KO ('+ i +').png';
-            // gamestate = 2;
+        if(liveNumber <= 0){
+            BoxHeadMan.Shape.width = 228;
+            BoxHeadMan.Shape.height = 192;
+            BoxHeadMan.image.src = '/BoxHeadMan sprites/KO/KO ('+ 21 +').png';
+            if(dead < 20) dead++;
+            else gamestate = 2;
         }
+    }
+    else if(gamestate==2){
+        window.requestAnimationFrame(animateGame);
+        backgroundGame.draw();
+        BoxHeadMan.draw();
+        
+        ctx.fillStyle = "black";
+        ctx.font = "75px Arial";
+        ctx.fillText("Your score is: " + (score*0.05).toFixed(0) ,canvas.width*0.3,300);
+        ctx.fillText("Your survival time is: " + (Timer*0.028).toFixed(0) ,canvas.width*0.3,375);
+
+        ctx.fillStyle = "pink";
+        ctx.font = "55px Time new roman";
+        ctx.fillText('press enter to try again',canvas.width*0.25,450);
+
+        window.addEventListener('keydown',(Event) => {
+            if(Event.key=='Enter') {
+                liveNumber = 3;
+                BoxHeadMan.Position.X_canvas = 0;
+                score = 0;
+                Timer = 0;
+                BoxHeadMan.image.src = '/BoxHeadMan sprites/run/run (19).png';
+                gamestate = 1;
+            }
+        });
     }
 }
 
